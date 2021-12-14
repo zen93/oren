@@ -152,7 +152,10 @@ order = async (req, res) => {
     if(cart && cart.items.length > 0) {
         try {
             let result = await Mailer.sendOrderDetails(cart.items, email);
-            if(result) res.send({ success: true, message: 'Mail sent with order details' });
+            if(result) {
+                let emptyCart = await Cart.updateOne({ email }, {$set: { items: [] }});
+                res.send({ success: true, message: 'Mail sent with order details' });
+            } 
         }
         catch(err) {
             throw new Error(err);

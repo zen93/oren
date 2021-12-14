@@ -8,10 +8,11 @@ The models available are:
 - User: This is the mongoose model for the user data (email, password, etc.)
 - DB: This gives the connect(), and close() method to manage connection with the Mongo database
 - Dishes: This model responds with the hardcoded values of two items, Dishes & Beverages
+- Mailer: Sends the order email
 
 ## Controllers
 The controllers are:
-- cartController: it has methods to get items(/cart/items), add a new item (/cart/add), increment item (/cart/increment), decrement an item (/cart/delete) or delete an item regardless of quantity (/delete/all)
+- cartController: it has methods to get items(/cart/items), add a new item (/cart/add), increment item (/cart/increment), decrement an item (/cart/delete) or delete an item regardless of quantity (/cart/delete/all). It also has (/cart/order) which sends an email of the complete order to the customer
 - userController: it has methods to get profile (/user/profile), login (/user/login), register(/user/register), edit profile (/user/edit)
 
 ## Routes
