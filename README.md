@@ -1,6 +1,6 @@
 # Restaurant API
 
-This is an api that implements oren backend developer tests. It uses jsonwebtoken, express-validator to validate the request body. It is written in a model-controller-routes architecture. 
+This is an api that implements oren backend developer tests. It is an express app with mongodb as the backend. The schemas can be found in models while business logic in controllers. Routes manages the exposed endpoints. It uses jsonwebtoken for login tokens, and express-validator to validate the request body. It is written in a model-controller architecture.
 
 ## Models
 The models available are:
