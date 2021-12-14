@@ -26,7 +26,7 @@ authenticateToken = (req, res, next) => {
 
 validateLogin = () => {
     return [
-        body('email').isEmail().normalizeEmail(),
+        body('email').isEmail().normalizeEmail({"gmail_remove_dots": false }),
         body('password').isLength({ min: config.passwordLength })
     ];
 }
@@ -38,7 +38,7 @@ validate = () => {
     const numbers = /[0-9]/;
 
     return [
-        body('email').isEmail().normalizeEmail(),
+        body('email').isEmail().normalizeEmail({"gmail_remove_dots": false }),
         body('password').isLength({ min: config.passwordLength })
             .matches(specialChars)
             .matches(letters)
@@ -51,7 +51,6 @@ validate = () => {
 
 validateProfile = () => {
     return [
-        // body('email').isEmail().normalizeEmail(),
         body('name').isLength({ min: config.nameLength }).trim().escape(),
         body('city').isLength({ min: config.cityLength }).trim().escape(),
         body('address').isLength({ min: config.addressLength }).trim().escape(),
@@ -69,13 +68,12 @@ login = async (req, res) => {
     const password = req.body.password;
         
     let user = await User.findOne({ email, password });
+    let token;
     if (user) {
-        let token = generateAccessToken(user.email);
-
+        token = generateAccessToken(user.email);
+        return res.send({ success: true, message: 'Login successful!', token });
     }
     else throw new Error('User not found or invalid password!');
-    const token = generateAccessToken(req.body.email);
-    return res.send({ success: true, message: 'Login successful!', token });
 }
 
 registerUser = async (req, res) => {

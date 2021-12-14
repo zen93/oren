@@ -1,4 +1,5 @@
 const Cart = require('../models/Cart');
+const Mailer = require('../models/Mailer');
 
 validate = (item, email) => {
     if (!item || !email) throw new Error('Params must be defined!');
@@ -144,8 +145,26 @@ deleteAllItems = async (req, res) => {
         throw new Error('No items in cart!');
 }
 
+order = async (req, res) => {
+    const email = req.user.email;
+    let cart = await Cart.findOne({ email });
+
+    if(cart && cart.items.length > 0) {
+        try {
+            let result = await Mailer.sendOrderDetails(cart.items, email);
+            if(result) res.send({ success: true, message: 'Mail sent with order details' });
+        }
+        catch(err) {
+            throw new Error(err);
+        }
+    }
+    else
+        throw new Error('No items in cart!');
+}
+
 exports.getItems = getItems;
 exports.addItem = addItem;
 exports.editItem = editItem;
 exports.deleteItem = deleteItem;
 exports.deleteAllItems = deleteAllItems;
+exports.order = order;

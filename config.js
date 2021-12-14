@@ -10,4 +10,5 @@ module.exports = {
     'nameLength': 2,
     'cityLength': 3,
     'addressLength': 5,
+    'mailgunApiKey': 'key-968e20135f8564f9753758bb34f516ee',
 }

@@ -8,6 +8,12 @@ router.get('/items', userController.authenticateToken, (req, res) => {
     cartController
         .getItems(req, res)
         .catch(err => res.status(400).send({ success: false, message: err.message }));
+});
+
+router.get('/order', userController.authenticateToken, (req, res) => {
+    cartController
+        .order(req, res)
+        .catch(err => res.status(400).send({ success: false, message: err.message }));
 })
 
 router.post('/add', userController.authenticateToken, function(req, res) {
